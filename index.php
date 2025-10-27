@@ -14,7 +14,36 @@ join `path` p on t.path_id = p.id
 join schedule s on t.schedule_id = s.id";
 
 $travels = $conn->query($sqlschedule);
-// Base URL: importante para que todas las rutas internas se resuelvan correctamente
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'create_company') {
+
+  // 2. Recolección y saneamiento de datos
+  $name = trim(htmlspecialchars($_POST['name']));
+  $email = trim(htmlspecialchars($_POST['email']));
+  $phone = trim(htmlspecialchars($_POST['phone']));
+  $web = trim(htmlspecialchars($_POST['web']));
+
+  // 3. Ejecución de la Inserción (USANDO DECLARACIONES PREPARADAS)
+  try {
+    // Asumiendo que tu tabla se llama 'companies'
+    $sql = "INSERT INTO companies (name, email, phone, web) VALUES (:name, :email, :phone, :web)";
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+      ':name' => $name,
+      ':email' => $email,
+      ':phone' => $phone,
+      ':web' => $web
+    ]);
+
+    // 4. Redirección al home para ver el resultado
+    header('Location: /');
+    exit;
+  } catch (PDOException $e) {
+    // Manejo de error (p. ej., registrarlo o mostrar un mensaje al usuario)
+    // echo "Error al guardar: " . $e->getMessage();
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -25,6 +54,89 @@ $travels = $conn->query($sqlschedule);
   <title>Terminal de Transportes Pasto</title>
   <meta name="description" content="Consulta empresas vinculadas, rutas, horarios, costos y cotiza en línea en la Terminal de Transportes Pasto." />
   <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* --- ESTILOS PARA LA VISTA PRINCIPAL (index.php) --- */
+
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f9;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Estilo para el botón "Crear Nueva Empresa" */
+    .btn-create-company {
+      display: inline-block;
+      background-color: #28a745;
+      /* Verde */
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .btn-create-company:hover {
+      background-color: #218838;
+    }
+
+    /* Estilos para el grid de empresas */
+    .companies-grid {
+      display: grid;
+      /* Dos columnas de igual tamaño */
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      /* Espacio entre las tarjetas */
+    }
+
+    .company-card {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+
+    .company-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .company-card h3 {
+      margin-top: 0;
+      color: #007bff;
+      /* Azul */
+      font-size: 1.5em;
+      border-bottom: 2px solid #f8f9fa;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+
+    .company-card p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+    .company-card strong {
+      color: #333;
+    }
+
+    /* Media query para hacer una sola columna en pantallas pequeñas */
+    @media (max-width: 768px) {
+      .companies-grid {
+        grid-template-columns: 1fr;
+        /* Una sola columna */
+      }
+    }
+  </style>
 </head>
 
 <body class="theme-azul">
@@ -94,12 +206,15 @@ $travels = $conn->query($sqlschedule);
 
   <section id="empresas" class="wrap section card" aria-labelledby="empresas-title">
     <h2 id="empresas-title">Empresas vinculadas</h2>
-
+    <a href="/create-company.php" class="btn-create-company">
+      Crear Nueva Empresa
+    </a>
     <div class="grid-emp">
       <?php foreach ($companies as $company): ?>
-
         <!-- Empresa 1 -->
         <article class="card emp-card" aria-label="Flota Pasto">
+          <div class="header-actions">
+          </div>
           <div class="emp-logo">
             <img src="<?= "img/{$company['name']}.png" ?>" alt="Logo de empresa">
           </div>

@@ -13,28 +13,37 @@
   --brand-900: #003366;
   --brand-700: #004b8d;
   --brand-500: #0076c2;
-  --brand-400: #00A3E0;
+  --brand-400: #00a3e0;
   --brand-100: #eaf3ff;
   --btn-hover: #005fa1;
   --link: #0f4a7a;
 }
 
 /* ===== Base global ===== */
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-html, body {
+html,
+body {
   height: 100%;
   scroll-behavior: smooth;
-  font-family: 'Segoe UI', Arial, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
   color: var(--text);
   background: var(--bg);
   line-height: 1.6;
 }
 
+/* Estilos para el contenedor limitador general (clase .wrap) */
 .wrap {
+  /* Establece un ancho máximo generoso, por ejemplo 1200px, 
+       para permitir que quepan dos columnas y sus espacios. */
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 90%; /* Ocupa el 90% del ancho de la ventana */
+  margin: 0 auto; /* Centra el contenedor horizontalmente */
+  padding: 20px 0; /* Espacio vertical si es necesario */
 }
 
 .card {
@@ -43,18 +52,25 @@ html, body {
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
 }
 
 /* ===== Encabezados ===== */
-h1, h2 {
+h1,
+h2 {
   color: var(--brand-900);
   font-weight: 700;
   margin-bottom: 12px;
 }
-h1 { font-size: 1.8rem; }
-h2 { font-size: 1.4rem; }
-.muted { color: var(--muted); }
+h1 {
+  font-size: 1.8rem;
+}
+h2 {
+  font-size: 1.4rem;
+}
+.muted {
+  color: var(--muted);
+}
 
 /* ============================
    HEADER Y MENÚ DE NAVEGACIÓN
@@ -62,7 +78,7 @@ h2 { font-size: 1.4rem; }
 header {
   background: var(--card);
   border-bottom: 1px solid var(--border);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -109,7 +125,7 @@ header {
   padding: 8px 10px;
   border-radius: 6px;
   font-weight: 600;
-  transition: all .2s ease;
+  transition: all 0.2s ease;
 }
 .menu a:hover,
 .menu a:focus {
@@ -126,10 +142,14 @@ header {
   padding: 10px 16px;
   font-weight: 700;
   cursor: pointer;
-  transition: background .2s ease, transform .1s ease;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
-.cta:hover { background: var(--btn-hover); }
-.cta:active { transform: scale(0.97); }
+.cta:hover {
+  background: var(--btn-hover);
+}
+.cta:active {
+  transform: scale(0.97);
+}
 
 /* Menú móvil */
 .hamburger {
@@ -137,7 +157,8 @@ header {
   flex-direction: column;
   justify-content: center;
   gap: 4px;
-  width: 38px; height: 34px;
+  width: 38px;
+  height: 34px;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: #fff;
@@ -191,7 +212,9 @@ header {
   border-radius: 10px;
   border: 1px solid var(--border);
 }
-#empresas .emp-logo img { max-width: 100%; }
+#empresas .emp-logo img {
+  max-width: 100%;
+}
 
 /* ============================
    TABLAS Y FORMULARIOS
@@ -201,7 +224,8 @@ table {
   border-collapse: collapse;
   margin-top: 10px;
 }
-th, td {
+th,
+td {
   padding: 10px;
   border-bottom: 1px solid var(--border);
   text-align: left;
@@ -210,26 +234,38 @@ th {
   background: var(--brand-100);
   color: var(--brand-900);
 }
-.badge-ok { color: #2ba853; font-weight: 700; }
-.badge-warn { color: #c83232; font-weight: 700; }
+.badge-ok {
+  color: #2ba853;
+  font-weight: 700;
+}
+.badge-warn {
+  color: #c83232;
+  font-weight: 700;
+}
 
 form {
   display: block;
   width: 100%;
 }
-.field { margin-bottom: 12px; }
+.field {
+  margin-bottom: 12px;
+}
 label {
   display: block;
   font-weight: 600;
   margin-bottom: 5px;
 }
-input, textarea, select {
+input,
+textarea,
+select {
   width: 100%;
   padding: 10px;
   border: 1px solid var(--border);
   border-radius: 6px;
 }
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+select:focus {
   outline: 2px solid var(--brand-100);
   border-color: var(--brand-400);
 }
@@ -243,10 +279,14 @@ input:focus, textarea:focus, select:focus {
   padding: 10px 16px;
   cursor: pointer;
   font-weight: 700;
-  transition: background .15s ease, transform .1s ease;
+  transition: background 0.15s ease, transform 0.1s ease;
 }
-.btn:hover { background: var(--btn-hover); }
-.btn:active { transform: translateY(1px); }
+.btn:hover {
+  background: var(--btn-hover);
+}
+.btn:active {
+  transform: translateY(1px);
+}
 
 /* ============================
    FOOTER UNIFICADO
@@ -256,7 +296,7 @@ footer {
   border-top: 1px solid var(--border);
   padding: 12px 20px;
   color: var(--muted);
-  font-size: .95em;
+  font-size: 0.95em;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -274,12 +314,27 @@ footer a:hover {
    RESPONSIVE DESIGN
    ============================ */
 @media (max-width: 768px) {
-  .menu { display: none; }
-  .menu.is-open { display: flex; flex-direction: column; width: 100%; }
-  .hamburger { display: flex; }
-  header, footer { text-align: center; }
-  .nav { flex-direction: column; }
-  .cta { width: 100%; }
+  .menu {
+    display: none;
+  }
+  .menu.is-open {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .hamburger {
+    display: flex;
+  }
+  header,
+  footer {
+    text-align: center;
+  }
+  .nav {
+    flex-direction: column;
+  }
+  .cta {
+    width: 100%;
+  }
 }
 
 /* ============================
@@ -290,4 +345,118 @@ body.theme-azul {
 }
 body.theme-azul .card {
   box-shadow: 0 5px 14px rgba(0, 51, 102, 0.08);
+}
+
+/* --- Estilos Generales de la Sección --- */
+#empresas {
+  padding: 30px 20px;
+  background-color: #f8f9fa; /* Un fondo ligeramente gris para destacar la sección */
+}
+
+#empresas-title {
+  color: #0d47a1; /* Color azul oscuro para el título */
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+/* --- Estilo del Botón "Crear Nueva Empresa" --- */
+.btn-create-company {
+  display: inline-block;
+  padding: 10px 15px;
+  margin-bottom: 25px;
+  background-color: #28a745; /* Verde de la imagen */
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-create-company:hover {
+  background-color: #218838;
+}
+
+/* --- Estilos del Contenedor de la Rejilla (Grid) --- */
+.grid-emp {
+  display: grid;
+  /* Define 4 columnas, ajustando dinámicamente el tamaño */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px; /* Espacio entre las tarjetas */
+  justify-content: center;
+}
+
+/* --- Estilos de la Tarjeta de Empresa (article.card-emp-card) --- */
+.card-emp-card {
+  background-color: white;
+  border: 1px solid #dee2e6; /* Borde sutil */
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para efecto 3D */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 200px; /* Asegura un tamaño mínimo uniforme */
+}
+
+.card-emp-card:hover {
+  transform: translateY(-5px); /* Pequeño levantamiento al pasar el mouse */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Estilos del Contenido de la Tarjeta --- */
+.emp-meta {
+  flex-grow: 1; /* Permite que el contenido ocupe el espacio disponible */
+}
+
+/* Estilo para el ID (si quieres mostrarlo discretamente) */
+.emp-meta strong:first-child {
+  font-size: 0.9em;
+  color: #6c757d;
+  margin-right: 5px;
+}
+
+/* Estilo para el Nombre de la Empresa */
+.emp-meta strong:nth-child(2) {
+  font-size: 1.2em;
+  color: #343a40;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Estilo para Teléfono y Email */
+.emp-meta small {
+  display: block;
+  color: #495057;
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+/* --- Estilos del Enlace "Ver más" --- */
+.btn-ver-mas {
+  display: block;
+  margin-top: 15px;
+  padding-top: 5px;
+  text-align: right;
+  color: #007bff; /* Color azul estándar para enlaces */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.btn-ver-mas:hover {
+  text-decoration: underline;
+}
+
+/* --- Estilos del Logo (Si se agrega una imagen de logo) --- */
+.emp-logo {
+  width: 60px; /* Tamaño del logo */
+  height: 60px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.emp-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
