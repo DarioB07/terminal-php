@@ -98,7 +98,7 @@
         </a>
         <h2>Registrar Nueva Empresa</h2>
 
-        <form action="create-company.php" method="POST">
+        <form action="index.php" method="POST">
 
             <label for="nombre_empresa">Nombre de la Empresa:</label>
             <input type="text" id="nombre_empresa" name="nombre_empresa" required>
