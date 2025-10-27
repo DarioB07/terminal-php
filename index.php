@@ -4,9 +4,10 @@ error_reporting(E_ALL);
 
 // Conexión (opcional, ya que la página principal puede funcionar sin BD)
 require __DIR__ . '/config/db.php';
-
+// Hacer una consulta
+$sql = "SELECT * FROM company";
+$companies = $conn->query($sql);
 // Base URL: importante para que todas las rutas internas se resuelvan correctamente
-$BASE_URL = '';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -14,12 +15,8 @@ $BASE_URL = '';
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Terminal de Transportes Libertadores – Yopal</title>
-  <meta name="description" content="Consulta empresas vinculadas, rutas, horarios, costos y cotiza en línea en la Terminal de Transportes Libertadores – Yopal." />
-
-  <!-- Hace que TODAS las rutas relativas apunten a /terminal_transporte/ -->
-  <base href="<?= htmlspecialchars($BASE_URL, ENT_QUOTES) ?>">
-
+  <title>Terminal de Transportes Pasto</title>
+  <meta name="description" content="Consulta empresas vinculadas, rutas, horarios, costos y cotiza en línea en la Terminal de Transportes Pasto." />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 
@@ -30,9 +27,9 @@ $BASE_URL = '';
     <nav class="nav card" aria-label="Navegación principal">
       <div class="brand" aria-label="Marca">
         <div class="logo">
-          <img src="img/logo.png" alt="Logo Terminal Libertadores Yopal" />
+          <img src="img/logo.png" alt="Logo Terminal Pasto " />
         </div>
-        <span>Terminal de Transportes Libertadores – Yopal</span>
+        <span>Terminal de Transportes Pasto</span>
       </div>
 
       <div class="grow"></div>
@@ -81,54 +78,33 @@ $BASE_URL = '';
     <aside class="ph" aria-label="Imagen ilustrativa de la terminal">
       <img
         src="img/terminal.png"
-        alt="Terminal de Transportes Libertadores – Yopal"
+        alt="Terminal de Transportes Pasto – "
         loading="lazy" />
     </aside>
   </main>
 
   <!-- Empresas -->
+
   <section id="empresas" class="wrap section card" aria-labelledby="empresas-title">
     <h2 id="empresas-title">Empresas vinculadas</h2>
 
     <div class="grid-emp">
-      <!-- Empresa 1 -->
-      <article class="card emp-card" aria-label="Flota Libertadores">
-        <div class="emp-logo">
-          <img src="img/flota.png" alt="Logo Flota Libertadores" />
-        </div>
-        <div class="emp-meta">
-          <strong>Flota Libertadores</strong>
-          <small>Rutas: Yopal – Bogotá – Villavicencio</small><br />
-          <small>Tel: (608) 634 4030 · contacto@flotalibertadores.com</small>
-        </div>
-        <a class="btn-link" href="https://www.flotalibertadores.com" target="_blank" rel="noopener">Ver más</a>
-      </article>
+      <?php foreach ($companies as $company): ?>
 
-      <!-- Empresa 2 -->
-      <article class="card emp-card" aria-label="Transportes Morichal">
-        <div class="emp-logo">
-          <img src="img/morichal.png" alt="Logo Transportes Morichal" />
-        </div>
-        <div class="emp-meta">
-          <strong>Transportes Morichal</strong>
-          <small>Rutas: Yopal – Villavicencio – Bogotá</small><br />
-          <small>Tel: (608) 634 2111 · atencion@morichal.com.co</small>
-        </div>
-        <a class="btn-link" href="https://morichal.com.co" target="_blank" rel="noopener">Ver más</a>
-      </article>
-
-      <!-- Empresa 3 -->
-      <article class="card emp-card" aria-label="Sugamuxi S.A.">
-        <div class="emp-logo">
-          <img src="img/sugamuxi.png" alt="Logo Sugamuxi S.A." />
-        </div>
-        <div class="emp-meta">
-          <strong>Sugamuxi S.A.</strong>
-          <small>Rutas: Yopal – Sogamoso – Tunja – Bogotá</small><br />
-          <small>Tel: (608) 770 2222 · contacto@sugamuxi.com</small>
-        </div>
-        <a class="btn-link" href="https://www.sugamuxi.com" target="_blank" rel="noopener">Ver más</a>
-      </article>
+        <!-- Empresa 1 -->
+        <article class="card emp-card" aria-label="Flota Pasto">
+          <div class="emp-logo">
+            <img src="<?= "img/{$company['name']}.png" ?>" alt="Logo de empresa">
+          </div>
+          <div class="emp-meta">
+            <strong><?= (int)$company['id'] ?></strong>
+            <strong><?= (string)$company['name'] ?></strong>
+            <!--<small>Rutas: – Bogotá – Villavicencio</small><br /> -->
+            <small>Tel: <?= (string)$company['phone'] ?> · <?= (string)$company['email'] ?></small>
+          </div>
+          <a class="btn-link" href="<?= "{$company['web']}" ?> " target="_blank" rel="noopener">Ver más</a>
+        </article>
+      <?php endforeach; ?>
     </div>
   </section>
 
@@ -201,7 +177,7 @@ $BASE_URL = '';
   <!-- Footer -->
   <footer class="wrap">
     <div class="foot card">
-      <div>© Terminal de Transportes Libertadores – Yopal</div>
+      <div>© Terminal de Transportes Pasto – </div>
       <div><a href="#">Políticas de privacidad</a> • <a href="#">Términos y condiciones</a></div>
       <div style="margin-top:.5rem">
         <a href="<?= htmlspecialchars($BASE_URL, ENT_QUOTES) ?>">Volver al inicio</a>
