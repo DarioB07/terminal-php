@@ -7,6 +7,13 @@ require __DIR__ . '/config/db.php';
 // Hacer una consulta
 $sql = "SELECT * FROM company";
 $companies = $conn->query($sql);
+
+$sqlschedule = "select * from travel t
+join vehicle v on t.vehicle_id = v.id 
+join `path` p on t.path_id = p.id 
+join schedule s on t.schedule_id = s.id";
+
+$travels = $conn->query($sqlschedule);
 // Base URL: importante para que todas las rutas internas se resuelvan correctamente
 ?>
 <!DOCTYPE html>
@@ -115,6 +122,7 @@ $companies = $conn->query($sql);
       <table role="table" aria-describedby="rutas-help">
         <thead>
           <tr>
+            <th scope="col">Origen</th>
             <th scope="col">Destino</th>
             <th scope="col">Hora de salida</th>
             <th scope="col">Estado</th>
@@ -122,24 +130,15 @@ $companies = $conn->query($sql);
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Bogotá</td>
-            <td>08:30 AM</td>
-            <td class="badge-ok">En horario</td>
-            <td>$ 120.000</td>
-          </tr>
-          <tr>
-            <td>Tunja</td>
-            <td>10:00 AM</td>
-            <td class="badge-warn">Retrasado</td>
-            <td>$ 80.000</td>
-          </tr>
-          <tr>
-            <td>Villavicencio</td>
-            <td>01:15 PM</td>
-            <td class="badge-ok">En horario</td>
-            <td>$ 95.000</td>
-          </tr>
+          <?php foreach ($travels as $travel): ?>
+            <tr>
+              <td><?= "{$travel['origin']}" ?></td>
+              <td><?= "{$travel['destination']}" ?></td>
+              <td>08:30 AM</td>
+              <td class="badge-ok">En horario</td>
+              <td>$ <?= "{$travel['value']}" ?></td>
+            </tr>
+          <?php endforeach; ?>
         </tbody>
       </table>
     </div>
@@ -161,15 +160,6 @@ $companies = $conn->query($sql);
         <div class="muted" style="margin-top:.5rem">
           ¿Prefieres la herramienta completa? <a href="cotizacion.php">Ir a cotizar</a>
         </div>
-      </form>
-
-      <form id="contacto" class="card form" aria-labelledby="con-title" onsubmit="return validarContacto(event)">
-        <h2 id="con-title">Contacto</h2>
-        <div class="field"><label for="nombre">Nombre</label><input id="nombre" name="nombre" required /></div>
-        <div class="field"><label for="email">Correo</label><input id="email" name="email" type="email" required /></div>
-        <div class="field"><label for="mensaje">Mensaje</label><textarea id="mensaje" name="mensaje"></textarea></div>
-        <button class="btn" type="submit">Enviar mensaje</button>
-        <div class="muted" style="margin-top:.5rem">Formulario demostrativo</div>
       </form>
     </div>
   </section>
